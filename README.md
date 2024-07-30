@@ -1,7 +1,16 @@
-## 基于designable v1.0.0-beta.25 实现
-- 兼容到designable v1.0.0-beta.45(中间没准有漏掉的commit)
+# 说明
 
-English | [简体中文](./README.zh-CN.md) 
+> 2024年07月30日
+
+同步到最新的[1.1.0](https://github.com/formilyjs/element-plus)，并集成vite，目前还发现了部分bug，在尝试调整修复。
+
+部分配置自用，其他配置仅供参考。
+
+---
+
+以下是原版说明：
+
+English | [简体中文](./README.zh-CN.md)
 
 <p align="center">
 <img src="https://img.alicdn.com/tfs/TB1fHhZu4D1gK0jSZFyXXciOVXa-2500-1200.png">
@@ -9,7 +18,7 @@ English | [简体中文](./README.zh-CN.md)
 <img src="https://img.shields.io/npm/dm/@formily/element-plus"/>
 <a href="https://www.npmjs.com/package/@formily/element-plus"><img src="https://img.shields.io/npm/v/@formily/element-plus.svg"></a>
 <a href="https://codecov.io/gh/formilyjs/element-plus">
-  <img src="https://codecov.io/gh/formilyjs/element-plus/branch/master/graph/badge.svg?token=3V9RU8Wh9d"/>
+  <img src="https://codecov.io/gh/formilyjs/element-plus/branch/main/graph/badge.svg?token=3V9RU8Wh9d"/>
 </a>
 <img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"/>
 <a href="https://github.com/actions-cool/issues-helper">

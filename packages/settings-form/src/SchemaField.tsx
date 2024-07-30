@@ -1,4 +1,6 @@
 import { createSchemaField } from '@formily/vue'
+import * as ElementUI from '@formily/element-plus'
+import { Slider, FormItemSwitcher } from '@formily/element-plus-renderer'
 import {
   ColorInput,
   CollapseItem,
@@ -13,9 +15,10 @@ import {
   ValueInput,
   DrawerSetter,
 } from './components'
-import { Slider, FormItemSwitcher } from '@formily/element-plus-renderer'
-import * as ElementUI from '@formily/element-plus'
-
+// todo fix
+setTimeout(() => {
+  console.log(Slider, ValueInput)
+}, 500);
 const SchemaFields = createSchemaField({
   components: {
     ...ElementUI,
@@ -31,8 +34,8 @@ const SchemaFields = createSchemaField({
     BorderRadiusStyleSetter,
     BorderStyleSetter,
     ValueInput,
-    Slider,
-    FormItemSwitcher
+    // Slider,
+    // FormItemSwitcher
   },
 })
 

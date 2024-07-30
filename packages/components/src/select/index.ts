@@ -1,5 +1,5 @@
-import { connect, mapProps, h, mapReadPretty } from '@formily/vue'
-import { defineComponent } from 'vue'
+import { connect, mapProps, mapReadPretty } from '@formily/vue'
+import { defineComponent, h } from 'vue'
 import { PreviewText } from '../preview-text'
 
 import { ElSelect, ElOption } from 'element-plus'
@@ -34,7 +34,12 @@ const SelectOption = defineComponent({
                     return h(
                       ElOption,
                       { key: option, value: option, label: option },
-                      slots
+                      {
+                        default: () =>
+                          slots?.option?.({
+                            option: { label: option, value: option },
+                          }) ?? option,
+                      }
                     )
                   } else {
                     return h(
@@ -43,7 +48,12 @@ const SelectOption = defineComponent({
                         key: option.value,
                         ...option,
                       },
-                      slots
+                      {
+                        default: () =>
+                          slots?.option?.({ option }) ??
+                          option.label ??
+                          option.value,
+                      }
                     )
                   }
                 }),

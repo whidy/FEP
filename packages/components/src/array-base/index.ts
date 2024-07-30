@@ -192,7 +192,7 @@ const ArrayBaseSortHandle = defineComponent({
         {
           directives: [{ name: 'handle' }],
           size: 'small',
-          text: true,
+          type: 'text',
           icon: Rank,
           ...attrs,
           class: [`${prefixCls}-sort-handle`].concat(attrs.class as any),
@@ -280,7 +280,7 @@ const ArrayBaseRemove = defineComponent<
         ElButton,
         {
           class: `${prefixCls}-remove`,
-          text: true,
+          type: 'text',
           size: 'small',
           icon: Delete,
           ...attrs,
@@ -321,7 +321,7 @@ const ArrayBaseMoveDown = defineComponent<
         {
           class: `${prefixCls}-move-down`,
           size: 'small',
-          text: true,
+          type: 'text',
           icon: ArrowDown,
           ...attrs,
           onClick: (e: MouseEvent) => {
@@ -365,7 +365,7 @@ const ArrayBaseMoveUp = defineComponent<
         {
           class: `${prefixCls}-move-up`,
           size: 'small',
-          text: true,
+          type: 'text',
           icon: ArrowUp,
           ...attrs,
           onClick: (e: MouseEvent) => {

@@ -1,7 +1,6 @@
 import { defineComponent, SetupContext, h } from 'vue'
 import type { VNode } from 'vue'
 import { stylePrefix } from '../__builtins__'
-import { each } from '@formily/shared'
 import { useFormLayout } from '../form-layout'
 import { isValidElementNode } from "element-plus/es/utils/vue/vnode"
 

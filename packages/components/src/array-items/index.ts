@@ -96,11 +96,12 @@ const ArrayItemsInner = observer(
           )
         }
         const renderAddition = () => {
+          // https://github.com/qq1037305420/element-plus/commit/7d7abb998c23a51241eb2ce13d12f8bd83672e78
           return schema.reduceProperties((addition, schema) => {
             if (isAdditionComponent(schema)) {
               return h(RecursionField, {
                 schema,
-                name: schema.name || 'addition',
+                name: 'addition',
               })
             }
             return addition

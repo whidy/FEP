@@ -19,7 +19,6 @@ const InnerSlider = connect(
   }),
   mapReadPretty(PreviewText.Input)
 )
-
 export const Slider = composeExport(
   InnerSlider,
   {

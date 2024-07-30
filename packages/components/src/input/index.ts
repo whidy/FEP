@@ -4,7 +4,6 @@ import { PreviewText } from '../preview-text'
 import { ElInput } from 'element-plus'
 
 export type InputProps = typeof ElInput
-
 const TransformElInput = transformComponent<InputProps>(ElInput, {
   change: 'update:modelValue',
 })
