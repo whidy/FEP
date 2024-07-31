@@ -16,9 +16,9 @@ import {
   DrawerSetter,
 } from './components'
 // todo fix
-setTimeout(() => {
-  console.log(Slider, ValueInput)
-}, 500);
+// setTimeout(() => {
+//   console.log(Slider, ValueInput)
+// }, 500);
 const SchemaFields = createSchemaField({
   components: {
     ...ElementUI,

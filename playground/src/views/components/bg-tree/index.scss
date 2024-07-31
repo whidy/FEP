@@ -1,0 +1,57 @@
+.bg-tree {
+  > .bg-tree-list {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.bg-tree-list {
+  list-style: none;
+  padding: 0 0 0 1em;
+
+  > li {
+    > .bg-tree-node {
+      position: relative;
+      padding-left: 32px;
+      font-size: 14px;
+      line-height: 32px;
+
+      > .bg-tree-node-icon {
+        height: 12px;
+        width: 12px;
+        position: absolute;
+        top: 11px;
+        left: 11px;
+        cursor: pointer;
+
+        &::before {
+          content: "";
+          border-width: 6px;
+          border-style: solid;
+          border-color: #333 transparent transparent transparent;
+          position: absolute;
+          top: 3px;
+          left: 0;
+        }
+
+        &.is-right {
+          border-color: transparent transparent #333 transparent;
+
+          &::before {
+            border-color:  transparent transparent transparent #333;
+            top: 0px;
+            left: 3px;
+          }
+        }
+      }
+
+      > .bg-tree-node-label {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-all;
+        white-space: nowrap;
+        margin: 0;
+      }
+    }
+  }
+}

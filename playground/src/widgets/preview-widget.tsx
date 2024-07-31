@@ -30,10 +30,9 @@ export default defineComponent({
     return () => {
       const form = formRef.value
       const { form: formProps, schema } = treeSchemaRef.value
-      console.log(schema)
       return (
         <div style={{ height: '100%', width: '100%', overflowY: 'auto', background: 'var(--dn-composite-panel-tabs-content-bg-color)' }}>
-          <Form previewTextPlaceholder={" "} form={form} {...formProps}>
+          <Form previewTextPlaceholder={' '} form={form} {...formProps}>
             <SchemaField schema={schema} />
           </Form>
         </div>

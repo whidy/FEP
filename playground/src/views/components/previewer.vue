@@ -1,0 +1,3 @@
+<template>
+  <previewer-widget />
+</template>

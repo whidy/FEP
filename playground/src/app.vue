@@ -1,203 +1,150 @@
 <template>
-  <Designer :engine="engine">
-    <Workbench>
-      <StudioPanel>
-        <template #logo>
-          <LogoWidget />
-        </template>
-        <template #actions>
-          <actions-widget />
-        </template>
-        <CompositePanel>
-          <CompositePanelItem title="panels.Component" icon="Component">
-            <ResourceWidget title="sources.Inputs" :sources="sources.Inputs" />
-            <ResourceWidget title="sources.Layouts" :sources="sources.Layouts" />
-            <ResourceWidget title="sources.Arrays" :sources="sources.Arrays" />
-            <ResourceWidget title="sources.Displays" :sources="sources.Displays" />
-          </CompositePanelItem>
-          <CompositePanelItem title="panels.OutlinedTree" icon="Outline">
-            <OutlineTreeWidget />
-          </CompositePanelItem>
-          <CompositePanelItem title="panels.History" icon="History">
-            <HistoryWidget />
-          </CompositePanelItem>
-        </CompositePanel>
-        <WorkspacePanel :style="{height:'100%'}">
-          <ToolbarPanel>
-            <DesignerToolsWidget />
-            <ViewToolsWidget :use="['DESIGNABLE', 'JSONTREE', 'PREVIEW']" />
-          </ToolbarPanel>
-          <ViewportPanel>
-            <ViewPanel type="DESIGNABLE">
-              <ComponentTreeWidget :components="components"></ComponentTreeWidget>
-            </ViewPanel>
-            <ViewPanel type="JSONTREE" :scrollable="false">
-              <template #default="tree, onChange">
-                <SchemaEditorWidget :tree="tree" @change="onChange"></SchemaEditorWidget>
-              </template>
-            </ViewPanel>
-            <ViewPanel type="PREVIEW" :scrollable="false">
-              <template #default="tree, onChange">
-                <PreviewWidget :tree="tree" />
-              </template>
-            </ViewPanel>
-          </ViewportPanel>
-        </WorkspacePanel>
-        <SettingsPanel title="panels.PropertySettings">
-          <SettingsForm />
-        </SettingsPanel>
-      </StudioPanel>
-    </Workbench>
-  </Designer>
+  <div :class="route.path.indexOf('/preview') > -1 ? 'no-header' : ''">
+    <el-container>
+      <el-header>
+        <div class="header">
+          <div class="h-left">
+            <el-menu
+              :default-active="activeIndex"
+              class="el-menu-demo"
+              mode="horizontal"
+              @select="handleSelect">
+              <el-menu-item index="1">表单设计</el-menu-item>
+              <el-menu-item index="2">菜单配置</el-menu-item>
+              <el-menu-item index="3">字典配置</el-menu-item>
+            </el-menu>
+          </div>
+          <div class="h-right">
+            <el-button
+              type="primary"
+              @click="handleImportDialog">导入</el-button>
+            <el-button type="primary" @click="preview">预览</el-button>
+          </div>
+        </div>
+      </el-header>
+      <div class="main-container">
+        <!-- <f-icon name="i-ep-user" size="large" color="blue" />
+        <f-icon name="i-bg-ic-arrow-down" size="large" color="blue" />
+        <f-icon name="i-bg-ic-close" size="24" color="red" />
+        <f-icon name="i-ep-edit-pen" size="small" />
+        <f-icon name="i-bg-ic-close" size="2em" /> -->
+        <router-view :key="route.fullPath" />
+      </div>
+    </el-container>
+  </div>
 </template>
-<script lnag="ts">
-import { createDesigner, GlobalRegistry } from '@designable/core'
-import {
-  Designer,
-  Workbench,
-  StudioPanel,
-  CompositePanel,
-  SettingsPanel,
-  WorkspacePanel,
-  ToolbarPanel,
-  DesignerToolsWidget,
-  ViewToolsWidget,
-  ViewPanel,
-  HistoryWidget,
-  OutlineTreeWidget,
-  ResourceWidget,
-  ComponentTreeWidget,
-  ViewportPanel,
-} from '@formily/element-plus-prototypes'
-import {
-  Form,
-  Field,
-  Input,
-  Select,
-  Cascader,
-  Radio,
-  Checkbox,
-  Transfer,
-  Password,
-  DatePicker,
-  TimePicker,
-  Upload,
-  Switch,
-  Text,
-  Card,
-  ArrayCards,
-  ObjectContainer,
-  ArrayTable,
-  Space,
-  FormTab,
-  FormCollapse,
-  FormLayout,
-  FormGrid,
-  InputNumber,
-  TreeSelect,
-  Slider,
-  Rate,
-} from '@formily/element-plus-renderer'
-import { SettingsForm } from '@formily/element-plus-settings-form'
-GlobalRegistry.registerDesignerLocales({
-  'zh-CN': {
-    sources: {
-      Inputs: '输入控件',
-      Layouts: '布局组件',
-      Arrays: '自增组件',
-      Displays: '展示组件',
-    },
-  },
-  'en-US': {
-    sources: {
-      Inputs: 'Inputs',
-      Layouts: 'Layouts',
-      Arrays: 'Arrays',
-      Displays: 'Displays',
-    },
-  },
+
+<script lang="ts" setup>
+import { computed } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import 'element-plus/dist/index.css'
+import FIcon from './FormIcon/f-icon.vue'
+
+const router = useRouter()
+const route = useRoute()
+const activeIndex = computed(() => {
+  switch (route.matched[0]?.path) {
+    case '/form':
+      return '1'
+    case '/menu-config':
+      return '2'
+    case '/dict-config':
+      return '3'
+    default:
+      return '-1'
+  }
 })
-import { defineComponent } from 'vue'
-export default defineComponent({
-  components: {
-    Designer,
-    Workbench,
-    StudioPanel,
-    CompositePanel,
-    CompositePanelItem: CompositePanel.Item,
-    SettingsPanel,
-    WorkspacePanel,
-    ToolbarPanel,
-    DesignerToolsWidget,
-    ViewToolsWidget,
-    ViewPanel,
-    HistoryWidget,
-    OutlineTreeWidget,
-    ResourceWidget,
-    ComponentTreeWidget,
-    ViewportPanel,
-    SettingsForm,
-  },
-  setup() {
-    const engine = createDesigner({
-      shortcuts: [],
-      rootComponentName: 'Form',
-    })
-    return {
-      engine,
-      components: {
-        Form,
-        Field,
-        Input,
-        Card,
-        InputNumber,
-        Select,
-        Cascader,
-        Transfer,
-        Checkbox,
-        Radio,
-        DatePicker,
-        TimePicker,
-        Upload,
-        Switch,
-        ObjectContainer,
-        Space,
-        Text,
-        ArrayCards,
-        ArrayTable,
-        FormGrid,
-        FormLayout,
-        FormTab,
-        FormCollapse,
-        TreeSelect,
-        Slider,
-        Password,
-        Rate,
-      },
-      sources: {
-        Inputs: [
-          Input,
-          Password,
-          InputNumber,
-          Rate,
-          Slider,
-          Select,
-          TreeSelect,
-          Cascader,
-          Transfer,
-          Checkbox,
-          Radio,
-          DatePicker,
-          TimePicker,
-          Upload,
-          Switch,
-          ObjectContainer,
-        ],
-        Arrays: [ArrayCards, ArrayTable],
-        Displays: [Text],
-        Layouts: [Card, Space, FormGrid, FormLayout, FormTab, FormCollapse],
-      },
-    }
-  },
-})
+const handleSelect = (index) => {
+  switch (index) {
+    case '1':
+      router.push({
+        path: '/form',
+        query: {
+          base: route.query.base,
+        },
+      })
+      break
+    case '2':
+      router.push({
+        path: '/menu-config',
+        query: {
+          base: route.query.base,
+        },
+      })
+      break
+    case '3':
+      router.push({
+        path: '/dict-config',
+        query: {
+          base: route.query.base,
+        },
+      })
+      break
+    default:
+      router.push({
+        path: '/form',
+        query: {
+          base: route.query.base,
+        },
+      })
+  }
+}
+
+const handleImportDialog = () => {
+  console.log('导入')
+}
+
+const preview = () => {
+  window.open(`${location.origin}/#/preview?base=${route.query.base}`)
+}
 </script>
+
+<style lang="scss">
+.no-header {
+  .main-container {
+    height: 100vh !important;
+  }
+  .el-header {
+    display: none;
+  }
+  .page_container {
+    padding: 0 !important;
+  }
+  .flex_left {
+    width: 220px !important;
+    margin-right: 0 !important;
+    border-right: 1px solid var(--el-menu-border-color);
+  }
+  .flex_left,
+  .flex_right {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+}
+.el-header {
+  height: 61px !important;
+  padding: 0 !important;
+  border-bottom: 1px solid var(--el-menu-border-color);
+}
+.main-container {
+  height: calc(100vh - 61px);
+}
+.header {
+  padding: 0 24px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  .el-menu--horizontal.el-menu {
+    border-bottom: 0;
+  }
+  .h-left {
+    width: 70%;
+  }
+  .h-right {
+    width: 30%;
+    text-align: right;
+  }
+}
+</style>
